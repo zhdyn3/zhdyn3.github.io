@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница о Zhdyn3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #fff; /* белый цвет текста */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        h1, h2 {
+            color: #fff; /* белый цвет текста */
+            text-align: center;
+        }
+        p {
+            line-height: 1.6;
+            color: #fff; /* белый цвет текста */
+        }
+        .social-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #007bff; /* синий цвет кнопок */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .social-links a:hover {
+            background-color: #0056b3; /* темный синий цвет при наведении */
+            transform: translateY(-3px); /* эффект подъема при наведении */
+        }
+        .donate-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .donate-link a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff; /* синий цвет кнопок */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .donate-link a:hover {
+            background-color: #0056b3; /* темный синий цвет при наведении */
+            transform: translateY(-3px); /* эффект подъема при наведении */
+        }
+        .video-gallery {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .video-item {
+            width: 300px;
+            margin: 10px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative; /* добавлено для позиционирования */
+            transition: transform 0.3s; /* добавлен переход для плавного изменения размера */
+        }
+        .video-item iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+        }
+        .video-item:hover {
+            transform: scale(1.1); /* увеличение размера при наведении */
+        }
+        .video-caption {
+            text-align: center;
+            color: #fff; /* белый цвет текста */
+            background-color: #007bff; /* синий цвет кнопок */
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            position: relative;
+            top: 10px; /* смещение надписи вниз */
+            animation: slideDown 0.5s ease; /* анимация смещения */
+        }
+        
+        @keyframes slideDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Страница о Zhdyn3</h1>
+        </header>
+        <section>
+            <h2>Ссылки Zhdyn3</h2>
+        </section>
+        <section class="social-links">
+            <a href="https://www.tiktok.com/@zhdynchik3?_t=8nM9B2Pn8CE&_r=1" target="_blank">Подписаться в TikTok</a>
+            <a href="https://youtube.com/@zhdynchik3?si=4yizaT3VnfeMW_DP" target="_blank">Подписаться на YouTube</a>
+        </section>
+        <section class="donate-link">
+            <a href="https://www.donationalerts.com/r/zhdyn3" target="_blank">Поддержать автора</a>
+        </section>
+        
+        <!-- Добавлен общий заголовок `video-caption` над видео -->
+        <div class="video-caption">Видео с канала на YouTube</div>
+        
+        <section class="video-gallery">
+            <div class="video-item">
+                <iframe width="300" height="200" src="https://www.youtube.com/embed/5tRgBxu6x9Y" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-item">
+                <iframe width="300" height="200" src="https://www.youtube.com/embed/b6rBV1-dim0" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-item">
+                <iframe width="300" height="200" src="https://www.youtube.com/embed/w5rzjhzdxcM" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-item">
+                <iframe width="300" height="200" src="https://www.youtube.com/embed/gLtSSiySJXc" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+        
+        <footer>
+            <p style="text-align: center;">&copy; 2024 Zhdynchik3. Все права защищены.</p>
+        </footer>
+    </div>
+</body>
+</html>
