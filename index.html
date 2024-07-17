@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Страница о Zhdyn3</title>
+    <link rel="icon" href="https://i.imgur.com/mYUXsXn.png" type="image/png"> <!-- Иконка сайта -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,6 +12,7 @@
             color: #fff; /* белый цвет текста */
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
         .container {
             max-width: 800px;
@@ -19,6 +21,7 @@
             background-color: #333;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
         h1, h2 {
             color: #fff; /* белый цвет текста */
@@ -32,7 +35,7 @@
             text-align: center;
             margin-top: 20px;
         }
-        .social-links a {
+        .social-links a, .donate-link a {
             display: inline-block;
             margin: 0 10px;
             padding: 10px 20px;
@@ -40,9 +43,10 @@
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+            animation: slideDown 0.5s ease; /* анимация при загрузке */
         }
-        .social-links a:hover {
+        .social-links a:hover, .donate-link a:hover {
             background-color: #0056b3; /* темный синий цвет при наведении */
             transform: translateY(-3px); /* эффект подъема при наведении */
         }
@@ -50,22 +54,10 @@
             text-align: center;
             margin-top: 20px;
         }
-        .donate-link a {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff; /* синий цвет кнопок */
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .donate-link a:hover {
-            background-color: #0056b3; /* темный синий цвет при наведении */
-            transform: translateY(-3px); /* эффект подъема при наведении */
-        }
         .video-gallery {
             margin-top: 30px;
             display: flex;
+            flex-direction: row; /* Изменено на row для двух столбцов */
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -78,13 +70,21 @@
             position: relative; /* добавлено для позиционирования */
             transition: transform 0.3s; /* добавлен переход для плавного изменения размера */
         }
-        .video-item iframe {
+        .video-item a {
+            display: block;
             width: 100%;
             height: 200px;
-            border: none;
+            position: relative; /* добавлено для позиционирования превью */
+            overflow: hidden;
         }
-        .video-item:hover {
-            transform: scale(1.1); /* увеличение размера при наведении */
+        .video-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .video-item a:hover {
+            background-color: #007bff; /* цвет фона при наведении */
         }
         .video-caption {
             text-align: center;
@@ -97,7 +97,42 @@
             top: 10px; /* смещение надписи вниз */
             animation: slideDown 0.5s ease; /* анимация смещения */
         }
-        
+        .new-video-label, .popular-video-label {
+            text-align: center;
+            color: #fff;
+            background-color: #ff5722; /* Оранжевый цвет для заметной надписи */
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            position: absolute;
+            top: -30px; /* Расположение надписи над видео */
+            left: 50%;
+            transform: translateX(-50%);
+            animation: slideDown 0.5s ease;
+            font-size: 14px;
+        }
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .star {
+            position: absolute;
+            background: url('https://i.imgur.com/p0GjCNd.png') no-repeat center;
+            background-size: contain;
+            width: 15px; /* Размер звезды */
+            height: 15px; /* Размер звезды */
+            animation: blink 1.5s infinite alternate;
+        }
+        @keyframes blink {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
         @keyframes slideDown {
             0% {
                 opacity: 0;
@@ -111,6 +146,7 @@
     </style>
 </head>
 <body>
+    <div class="stars" id="stars-container"></div>
     <div class="container">
         <header>
             <h1>Страница о Zhdyn3</h1>
@@ -126,27 +162,105 @@
             <a href="https://www.donationalerts.com/r/zhdyn3" target="_blank">Поддержать автора</a>
         </section>
         
-        <!-- Добавлен общий заголовок `video-caption` над видео -->
+        <!-- Добавлен общий заголовок video-caption над видео -->
         <div class="video-caption">Видео с канала на YouTube</div>
         
         <section class="video-gallery">
             <div class="video-item">
-                <iframe width="300" height="200" src="https://www.youtube.com/embed/5tRgBxu6x9Y" frameborder="0" allowfullscreen></iframe>
+                <div class="new-video-label">Новое видео!</div>
+                <a id="new-video" href="#" target="_blank">
+                    <img id="new-video-thumbnail" src="" alt="Превью нового видео">
+                </a>
             </div>
             <div class="video-item">
-                <iframe width="300" height="200" src="https://www.youtube.com/embed/b6rBV1-dim0" frameborder="0" allowfullscreen></iframe>
+                <div class="popular-video-label">Самое популярное видео!</div>
+                <a id="most-popular-video" href="#" target="_blank">
+                    <img id="popular-video-thumbnail" src="" alt="Превью популярного видео">
+                </a>
             </div>
             <div class="video-item">
-                <iframe width="300" height="200" src="https://www.youtube.com/embed/w5rzjhzdxcM" frameborder="0" allowfullscreen></iframe>
+                <a id="random-video-1" href="#" target="_blank">
+                    <img id="random-video-thumbnail-1" src="" alt="Превью случайного видео 1">
+                </a>
             </div>
             <div class="video-item">
-                <iframe width="300" height="200" src="https://www.youtube.com/embed/gLtSSiySJXc" frameborder="0" allowfullscreen></iframe>
+                <a id="random-video-2" href="#" target="_blank">
+                    <img id="random-video-thumbnail-2" src="" alt="Превью случайного видео 2">
+                </a>
             </div>
         </section>
         
         <footer>
-            <p style="text-align: center;">&copy; 2024 Zhdynchik3. Все права защищены. Спасибо ChatGPT от OpenAI за помощь в создании этого сайта.</p>
-        </footer>
+            <p style="text-align: center;">&copy; 2024 Zhdynchik3. Все права защищены.</p>
+        </footer>        
     </div>
+
+    <script>
+        async function fetchVideos() {
+            const apiKey = 'AIzaSyBQYS4m6HGyM5yu6s4VX-GA4k1MBGN0m_k'; // Ваш API-ключ
+            const channelId = 'UC8n0a2VCptAv7Up9ObBldrA'; // Ваш ID канала
+            const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&order=date&part=snippet&type=video&maxResults=10`;
+            
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                const videos = data.items;
+                
+                if (videos.length > 0) {
+                    // Получение случайных видео
+                    const randomIndex1 = Math.floor(Math.random() * videos.length);
+                    const randomIndex2 = Math.floor(Math.random() * videos.length);
+                    
+                    // Получение нового и самого популярного видео
+                    const newVideo = videos[0];
+                    const popularVideo = videos.reduce((prev, current) => (prev.snippet.publishedAt > current.snippet.publishedAt) ? prev : current);
+                    
+                    // Генерация ссылок и изображений
+                    const newVideoUrl = `https://www.youtube.com/watch?v=${newVideo.id.videoId}`;
+                    const newVideoThumbnail = `https://img.youtube.com/vi/${newVideo.id.videoId}/hqdefault.jpg`;
+
+                    const popularVideoUrl = `https://www.youtube.com/watch?v=${popularVideo.id.videoId}`;
+                    const popularVideoThumbnail = `https://img.youtube.com/vi/${popularVideo.id.videoId}/hqdefault.jpg`;
+
+                    document.getElementById('new-video').href = newVideoUrl;
+                    document.getElementById('new-video-thumbnail').src = newVideoThumbnail;
+
+                    document.getElementById('most-popular-video').href = popularVideoUrl;
+                    document.getElementById('popular-video-thumbnail').src = popularVideoThumbnail;
+
+                    document.getElementById('random-video-1').href = `https://www.youtube.com/watch?v=${videos[randomIndex1].id.videoId}`;
+                    document.getElementById('random-video-thumbnail-1').src = `https://img.youtube.com/vi/${videos[randomIndex1].id.videoId}/hqdefault.jpg`;
+
+                    document.getElementById('random-video-2').href = `https://www.youtube.com/watch?v=${videos[randomIndex2].id.videoId}`;
+                    document.getElementById('random-video-thumbnail-2').src = `https://img.youtube.com/vi/${videos[randomIndex2].id.videoId}/hqdefault.jpg`;
+                }
+            } catch (error) {
+                console.error('Ошибка при загрузке видео:', error);
+            }
+        }
+
+        fetchVideos();
+
+        // Генерация случайного появления звезд
+        function generateStars() {
+            const starsContainer = document.getElementById('stars-container');
+            const numberOfStars = 30; // Уменьшено количество звезд
+
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 5 + 5; // Размер от 5 до 10 пикселей
+                const x = Math.random() * 100; // Положение от 0% до 100%
+                const y = Math.random() * 100;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.top = `${y}%`;
+                star.style.left = `${x}%`;
+                starsContainer.appendChild(star);
+            }
+        }
+
+        generateStars();
+    </script>
 </body>
 </html>
