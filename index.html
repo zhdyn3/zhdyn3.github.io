@@ -22,6 +22,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             position: relative;
+            z-index: 1;
         }
         h1, h2 {
             color: #fff; /* белый цвет текста */
@@ -34,30 +35,51 @@
         .social-links {
             text-align: center;
             margin-top: 20px;
+            position: relative;
+            z-index: 2; /* Устанавливаем z-index выше для слоя с контентом */
         }
-        .social-links a, .donate-link a {
+        .social-links a {
             display: inline-block;
             margin: 0 10px;
-            padding: 10px 20px;
-            background-color: #007bff; /* синий цвет кнопок */
+            padding: 10px;
+            background-color: #333;
             color: #fff;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 50%;
             transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
-            animation: slideDown 0.5s ease; /* анимация при загрузке */
+            animation: slideDown 0.5s ease;
+            vertical-align: middle;
         }
-        .social-links a:hover, .donate-link a:hover {
-            background-color: #0056b3; /* темный синий цвет при наведении */
-            transform: translateY(-3px); /* эффект подъема при наведении */
+        .social-links a:hover {
+            background-color: #555;
+            transform: translateY(-3px);
         }
-        .donate-link {
+        .social-links img {
+            width: 40px;
+            height: 40px;
+        }
+        .avatar-container {
             text-align: center;
             margin-top: 20px;
+            position: relative;
+        }
+        .avatar-container img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            border: 3px solid #fff;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .avatar-container img.clicked {
+            transform: scale(1.1);
         }
         .video-gallery {
             margin-top: 30px;
             display: flex;
-            flex-direction: row; /* Изменено на row для двух столбцов */
+            flex-direction: row;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -67,14 +89,14 @@
             overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            position: relative; /* добавлено для позиционирования */
-            transition: transform 0.3s; /* добавлен переход для плавного изменения размера */
+            position: relative;
+            transition: transform 0.3s;
         }
         .video-item a {
             display: block;
             width: 100%;
             height: 200px;
-            position: relative; /* добавлено для позиционирования превью */
+            position: relative;
             overflow: hidden;
         }
         .video-item img {
@@ -83,29 +105,26 @@
             object-fit: cover;
             display: block;
         }
-        .video-item a:hover {
-            background-color: #007bff; /* цвет фона при наведении */
-        }
         .video-caption {
             text-align: center;
-            color: #fff; /* белый цвет текста */
-            background-color: #007bff; /* синий цвет кнопок */
+            color: #fff;
+            background-color: #007bff;
             padding: 10px 20px;
             border-radius: 5px;
             margin-bottom: 20px;
             position: relative;
-            top: 10px; /* смещение надписи вниз */
-            animation: slideDown 0.5s ease; /* анимация смещения */
+            top: 10px;
+            animation: slideDown 0.5s ease;
         }
         .new-video-label, .popular-video-label {
             text-align: center;
             color: #fff;
-            background-color: #ff5722; /* Оранжевый цвет для заметной надписи */
+            background-color: #ff5722;
             padding: 10px 20px;
             border-radius: 5px;
             margin-bottom: 10px;
             position: absolute;
-            top: -30px; /* Расположение надписи над видео */
+            top: -30px;
             left: 50%;
             transform: translateX(-50%);
             animation: slideDown 0.5s ease;
@@ -125,8 +144,8 @@
             position: absolute;
             background: url('https://i.imgur.com/p0GjCNd.png') no-repeat center;
             background-size: contain;
-            width: 15px; /* Размер звезды */
-            height: 15px; /* Размер звезды */
+            width: 15px;
+            height: 15px;
             animation: blink 1.5s infinite alternate;
         }
         @keyframes blink {
@@ -143,124 +162,124 @@
                 transform: translateY(0);
             }
         }
+        .alert {
+            display: none;
+            padding: 20px;
+            background-color: #444;
+            color: #fff;
+            border-radius: 8px;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            max-width: 80%;
+        }
+        .alert a {
+            color: #1e90ff;
+            text-decoration: underline;
+        }
+        @keyframes starFall {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        .star-fall {
+            position: absolute;
+            background: url('https://i.imgur.com/p0GjCNd.png') no-repeat center;
+            background-size: contain;
+            width: 15px;
+            height: 15px;
+            animation: starFall 2s forwards;
+        }
     </style>
 </head>
 <body>
     <div class="stars" id="stars-container"></div>
     <div class="container">
-        <header>
-            <h1>Страница о Zhdyn3</h1>
-        </header>
+        <section class="avatar-container">
+            <img src="https://i.imgur.com/Hn0H7sl.png" alt="Аватарка Zhdyn3" id="avatar-img">
+        </section>
         <section>
             <h2>Ссылки Zhdyn3</h2>
         </section>
         <section class="social-links">
-            <a href="https://www.tiktok.com/@zhdynchik3?_t=8nM9B2Pn8CE&_r=1" target="_blank">Подписаться в TikTok</a>
-            <a href="https://youtube.com/@zhdynchik3?si=4yizaT3VnfeMW_DP" target="_blank">Подписаться на YouTube</a>
+            <a href="#" id="discord-link"><img src="https://i.imgur.com/XhwaoKk.png" alt="Discord"></a>
+            <a href="https://www.tiktok.com/@zhdynchik3?_t=8nM9B2Pn8CE&_r=1" target="_blank"><img src="https://i.imgur.com/zrv3v2v.png" alt="TikTok"></a>
+            <a href="https://youtube.com/@zhdynchik3?si=4yizaT3VnfeMW_DP" target="_blank"><img src="https://i.imgur.com/05FnVqn.png" alt="YouTube"></a>
+            <a href="https://www.donationalerts.com/r/zhdyn3" target="_blank"><img src="https://i.imgur.com/WWLyAC5.png" alt="Donation Alerts Logo" style="display: block; margin: 0 auto;"></a>
         </section>
-        <section class="donate-link">
-            <a href="https://www.donationalerts.com/r/zhdyn3" target="_blank">Поддержать автора</a>
-        </section>
-        
+
         <!-- Добавлен общий заголовок video-caption над видео -->
         <div class="video-caption">Видео с канала на YouTube</div>
         
         <section class="video-gallery">
             <div class="video-item">
-                <div class="new-video-label">Новое видео!</div>
+                <div class="new-video-label"></div>
                 <a id="new-video" href="#" target="_blank">
-                    <img id="new-video-thumbnail" src="" alt="Превью нового видео">
+                    <img id="new-video-thumbnail" src="" alt="">
                 </a>
             </div>
             <div class="video-item">
-                <div class="popular-video-label">Самое популярное видео!</div>
+                <div class="popular-video-label"></div>
                 <a id="most-popular-video" href="#" target="_blank">
-                    <img id="popular-video-thumbnail" src="" alt="Превью популярного видео">
+                    <img id="popular-video-thumbnail" src="" alt="">
                 </a>
             </div>
             <div class="video-item">
                 <a id="random-video-1" href="#" target="_blank">
-                    <img id="random-video-thumbnail-1" src="" alt="Превью случайного видео 1">
+                    <img id="random-video-thumbnail-1" src="" alt="">
                 </a>
             </div>
             <div class="video-item">
                 <a id="random-video-2" href="#" target="_blank">
-                    <img id="random-video-thumbnail-2" src="" alt="Превью случайного видео 2">
+                    <img id="random-video-thumbnail-2" src="" alt="">
                 </a>
             </div>
         </section>
-        
-        <footer>
-            <p style="text-align: center;">&copy; 2024 Zhdynchik3. Все права защищены.</p>
-        </footer>        
     </div>
-
     <script>
-        async function fetchVideos() {
-            const apiKey = 'AIzaSyBQYS4m6HGyM5yu6s4VX-GA4k1MBGN0m_k'; // Ваш API-ключ
-            const channelId = 'UC8n0a2VCptAv7Up9ObBldrA'; // Ваш ID канала
-            const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&order=date&part=snippet&type=video&maxResults=10`;
-            
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                const videos = data.items;
-                
-                if (videos.length > 0) {
-                    // Получение случайных видео
-                    const randomIndex1 = Math.floor(Math.random() * videos.length);
-                    const randomIndex2 = Math.floor(Math.random() * videos.length);
-                    
-                    // Получение нового и самого популярного видео
-                    const newVideo = videos[0];
-                    const popularVideo = videos.reduce((prev, current) => (prev.snippet.publishedAt > current.snippet.publishedAt) ? prev : current);
-                    
-                    // Генерация ссылок и изображений
-                    const newVideoUrl = `https://www.youtube.com/watch?v=${newVideo.id.videoId}`;
-                    const newVideoThumbnail = `https://img.youtube.com/vi/${newVideo.id.videoId}/hqdefault.jpg`;
+        const avatarImg = document.getElementById('avatar-img');
+        const starsContainer = document.getElementById('stars-container');
 
-                    const popularVideoUrl = `https://www.youtube.com/watch?v=${popularVideo.id.videoId}`;
-                    const popularVideoThumbnail = `https://img.youtube.com/vi/${popularVideo.id.videoId}/hqdefault.jpg`;
+        avatarImg.addEventListener('click', function() {
+            this.classList.add('clicked');
+            createStarsFromAvatar();
+            setTimeout(() => this.classList.remove('clicked'), 300);
+        });
 
-                    document.getElementById('new-video').href = newVideoUrl;
-                    document.getElementById('new-video-thumbnail').src = newVideoThumbnail;
+        function createStarsFromAvatar() {
+            for (let i = 0; i < 10; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-fall';
+                star.style.left = `${avatarImg.offsetLeft + avatarImg.offsetWidth / 2 - 7.5}px`;
+                star.style.top = `${avatarImg.offsetTop + avatarImg.offsetHeight / 2 - 7.5}px`;
+                starsContainer.appendChild(star);
 
-                    document.getElementById('most-popular-video').href = popularVideoUrl;
-                    document.getElementById('popular-video-thumbnail').src = popularVideoThumbnail;
-
-                    document.getElementById('random-video-1').href = `https://www.youtube.com/watch?v=${videos[randomIndex1].id.videoId}`;
-                    document.getElementById('random-video-thumbnail-1').src = `https://img.youtube.com/vi/${videos[randomIndex1].id.videoId}/hqdefault.jpg`;
-
-                    document.getElementById('random-video-2').href = `https://www.youtube.com/watch?v=${videos[randomIndex2].id.videoId}`;
-                    document.getElementById('random-video-thumbnail-2').src = `https://img.youtube.com/vi/${videos[randomIndex2].id.videoId}/hqdefault.jpg`;
-                }
-            } catch (error) {
-                console.error('Ошибка при загрузке видео:', error);
+                setTimeout(() => {
+                    star.style.left = `${Math.random() * 100}vw`;
+                    star.style.top = `${Math.random() * 100}vh`;
+                }, 100);
             }
         }
 
-        fetchVideos();
-
-        // Генерация случайного появления звезд
-        function generateStars() {
-            const starsContainer = document.getElementById('stars-container');
-            const numberOfStars = 30; // Уменьшено количество звезд
-
-            for (let i = 0; i < numberOfStars; i++) {
+        function addStars() {
+            for (let i = 0; i < 50; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                const size = Math.random() * 5 + 5; // Размер от 5 до 10 пикселей
-                const x = Math.random() * 100; // Положение от 0% до 100%
-                const y = Math.random() * 100;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.top = `${y}%`;
-                star.style.left = `${x}%`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
                 starsContainer.appendChild(star);
+
+                // Удалить звезду после анимации
+                star.addEventListener('animationend', () => {
+                    star.remove();
+                });
             }
         }
 
-        generateStars();
+        addStars();
     </script>
 </body>
 </html>
