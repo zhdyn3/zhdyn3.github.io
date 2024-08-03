@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Страница о Zhdyn3</title>
-    <link rel="icon" href="https://i.imgur.com/mYUXsXn.png" type="image/png"> <!-- Иконка сайта -->
+    <link rel="icon" href="https://i.imgur.com/mYUXsXn.png" type="image/png">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #222;
-            color: #fff; /* белый цвет текста */
+            color: #fff;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
@@ -25,18 +25,18 @@
             z-index: 1;
         }
         h1, h2 {
-            color: #fff; /* белый цвет текста */
+            color: #fff;
             text-align: center;
         }
         p {
             line-height: 1.6;
-            color: #fff; /* белый цвет текста */
+            color: #fff;
         }
         .social-links {
             text-align: center;
             margin-top: 20px;
             position: relative;
-            z-index: 2; /* Устанавливаем z-index выше для слоя с контентом */
+            z-index: 2;
         }
         .social-links a {
             display: inline-block;
@@ -211,7 +211,6 @@
             <a href="https://www.donationalerts.com/r/zhdyn3" target="_blank"><img src="https://i.imgur.com/WWLyAC5.png" alt="Donation Alerts Logo" style="display: block; margin: 0 auto;"></a>
         </section>
 
-        <!-- Добавлен общий заголовок video-caption над видео -->
         <div class="video-caption">Видео с канала на YouTube</div>
         
         <section class="video-gallery">
@@ -238,8 +237,53 @@
                 </a>
             </div>
         </section>
+        
+        <footer>
+            <p style="text-align: center;">&copy; 2024 Zhdynchik3. Все права защищены.</p>
+        </footer>        
     </div>
+
     <script>
+        async function fetchVideos() {
+            const apiKey = 'AIzaSyBQYS4m6HGyM5yu6s4VX-GA4k1MBGN0m_k';
+            const channelId = 'UC8n0a2VCptAv7Up9ObBldrA';
+            const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&order=date&part=snippet&type=video&maxResults=10`;
+            
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                const videos = data.items;
+                
+                if (videos.length > 0) {
+                    const randomIndex1 = Math.floor(Math.random() * videos.length);
+                    const randomIndex2 = Math.floor(Math.random() * videos.length);
+                    
+                    const newVideo = videos[0];
+                    const popularVideo = videos.reduce((prev, current) => (prev.snippet.publishedAt > current.snippet.publishedAt) ? prev : current);
+                    
+                    const newVideoUrl = `https://www.youtube.com/watch?v=${newVideo.id.videoId}`;
+                    const newVideoThumbnail = `https://img.youtube.com/vi/${newVideo.id.videoId}/hqdefault.jpg`;
+
+                    const popularVideoUrl = `https://www.youtube.com/watch?v=${popularVideo.id.videoId}`;
+                    const popularVideoThumbnail = `https://img.youtube.com/vi/${popularVideo.id.videoId}/hqdefault.jpg`;
+
+                    document.getElementById('new-video').href = newVideoUrl;
+                    document.getElementById('new-video-thumbnail').src = newVideoThumbnail;
+
+                    document.getElementById('most-popular-video').href = popularVideoUrl;
+                    document.getElementById('popular-video-thumbnail').src = popularVideoThumbnail;
+
+                    document.getElementById('random-video-1').href = `https://www.youtube.com/watch?v=${videos[randomIndex1].id.videoId}`;
+                    document.getElementById('random-video-thumbnail-1').src = `https://img.youtube.com/vi/${videos[randomIndex1].id.videoId}/hqdefault.jpg`;
+
+                    document.getElementById('random-video-2').href = `https://www.youtube.com/watch?v=${videos[randomIndex2].id.videoId}`;
+                    document.getElementById('random-video-thumbnail-2').src = `https://img.youtube.com/vi/${videos[randomIndex2].id.videoId}/hqdefault.jpg`;
+                }
+            } catch (error) {
+                console.error('', error);
+            }
+        }
+
         const avatarImg = document.getElementById('avatar-img');
         const starsContainer = document.getElementById('stars-container');
 
@@ -264,22 +308,27 @@
             }
         }
 
-        function addStars() {
-            for (let i = 0; i < 50; i++) {
+        fetchVideos();
+        
+         function generateStars() {
+            const starsContainer = document.getElementById('stars-container');
+            const numberOfStars = 30; 
+
+            for (let i = 0; i < numberOfStars; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                star.style.left = `${Math.random() * 100}vw`;
-                star.style.top = `${Math.random() * 100}vh`;
+                const size = Math.random() * 5 + 12;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.top = `${y}%`;
+                star.style.left = `${x}%`;
                 starsContainer.appendChild(star);
-
-                // Удалить звезду после анимации
-                star.addEventListener('animationend', () => {
-                    star.remove();
-                });
             }
         }
 
-        addStars();
+        generateStars();
     </script>
 </body>
 </html>
