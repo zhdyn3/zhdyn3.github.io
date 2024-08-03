@@ -250,51 +250,75 @@
         </footer>
     
         <script>
+            const CACHE_KEY = 'youtube_videos_cache';
+            const CACHE_DURATION = 3600000;
+        
             async function fetchVideos() {
-                const apiKey = 'AIzaSyBLLRI1pVx3dXVKjbZv3lAqkVTVfxkOV5A';
-                const channelId = 'UC8n0a2VCptAv7Up9ObBldrA';
-                const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&order=date&part=snippet&type=video&maxResults=10`;
-    
-                try {
-                    const response = await fetch(apiUrl);
-                    const data = await response.json();
-                    const videos = data.items;
-    
-                    if (videos.length > 0) {
-                        const getVideoUrl = (videoId) => `https://www.youtube.com/watch?v=${videoId}`;
-                        const getThumbnailUrl = (videoId) => `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-    
-                        const newVideo = videos[0];
-                        const popularVideo = videos.reduce((prev, current) => (prev.snippet.publishedAt > current.snippet.publishedAt) ? prev : current);
-    
-                        const randomIndex1 = Math.floor(Math.random() * videos.length);
-                        const randomIndex2 = Math.floor(Math.random() * videos.length);
-    
-                        updateVideoElement('new-video', 'new-video-thumbnail', newVideo);
-                        updateVideoElement('most-popular-video', 'popular-video-thumbnail', popularVideo);
-                        updateVideoElement('random-video-1', 'random-video-thumbnail-1', videos[randomIndex1]);
-                        updateVideoElement('random-video-2', 'random-video-thumbnail-2', videos[randomIndex2]);
+                const now = Date.now();
+                const cachedData = localStorage.getItem(CACHE_KEY);
+                
+                if (cachedData && now - JSON.parse(cachedData).timestamp < CACHE_DURATION) {
+                    const data = JSON.parse(cachedData).data;
+                    processVideos(data);
+                } else {
+                    const apiKey = 'AIzaSyBLLRI1pVx3dXVKjbZv3lAqkVTVfxkOV5A';
+                    const channelId = 'UC8n0a2VCptAv7Up9ObBldrA';
+                    const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&order=date&part=snippet&type=video&maxResults=10`;
+        
+                    try {
+                        const response = await fetch(apiUrl);
+                        const data = await response.json();
+                        
+                        localStorage.setItem(CACHE_KEY, JSON.stringify({
+                            timestamp: now,
+                            data: data
+                        }));
+        
+                        processVideos(data);
+                    } catch (error) {
+                        console.error('Ошибка при получении данных с YouTube:', error);
                     }
-                } catch (error) {
-                    console.error('Ошибка при получении данных с YouTube:', error);
                 }
             }
-    
+        
+            function processVideos(data) {
+                const videos = data.items;
+        
+                if (videos.length > 0) {
+                    const getVideoUrl = (videoId) => `https://www.youtube.com/watch?v=${videoId}`;
+                    const getThumbnailUrl = (videoId) => `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+        
+                    const newVideo = videos[0];
+                    const popularVideo = videos.reduce((prev, current) => (prev.snippet.publishedAt > current.snippet.publishedAt) ? prev : current);
+        
+                    const randomIndex1 = Math.floor(Math.random() * videos.length);
+                    const randomIndex2 = Math.floor(Math.random() * videos.length);
+        
+                    updateVideoElement('new-video', 'new-video-thumbnail', newVideo);
+                    updateVideoElement('most-popular-video', 'popular-video-thumbnail', popularVideo);
+                    updateVideoElement('random-video-1', 'random-video-thumbnail-1', videos[randomIndex1]);
+                    updateVideoElement('random-video-2', 'random-video-thumbnail-2', videos[randomIndex2]);
+                }
+            }
+        
             function updateVideoElement(anchorId, imgId, video) {
                 const url = getVideoUrl(video.id.videoId);
                 const thumbnail = getThumbnailUrl(video.id.videoId);
-    
+        
                 document.getElementById(anchorId).href = url;
                 document.getElementById(imgId).src = thumbnail;
             }
-    
+        
             function getVideoUrl(videoId) {
                 return `https://www.youtube.com/watch?v=${videoId}`;
             }
-    
+        
             function getThumbnailUrl(videoId) {
                 return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
             }
+        
+            // Инициализация
+            fetchVideos();
     
         
         function createStarsFromAvatar() {
