@@ -13,12 +13,19 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            position: relative;
         }
         .container {
             max-width: 800px;
-            margin: 20px auto;
+            width: 100%;
+            margin: 20px;
             padding: 20px;
-            background-color: #333;
+            background-color: rgba(51, 51, 51, 0.8);
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             position: relative;
@@ -26,14 +33,12 @@
         }
         h1, h2 {
             color: #fff;
-            text-align: center;
         }
         p {
             line-height: 1.6;
             color: #fff;
         }
         .social-links {
-            text-align: center;
             margin-top: 20px;
             position: relative;
             z-index: 2;
@@ -48,7 +53,6 @@
             border-radius: 50%;
             transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
             animation: slideDown 0.5s ease;
-            vertical-align: middle;
         }
         .social-links a:hover {
             background-color: #555;
@@ -59,79 +63,43 @@
             height: 40px;
         }
         .avatar-container {
-            text-align: center;
             margin-top: 20px;
             position: relative;
+            z-index: 2;
         }
         .avatar-container img {
             border-radius: 50%;
             width: 150px;
             height: 150px;
             border: 3px solid #fff;
-            position: relative;
-            z-index: 2;
             cursor: pointer;
             transition: transform 0.3s ease;
         }
         .avatar-container img.clicked {
-            transform: scale(1.1);
+            transform: scale(1.2);
         }
-        .video-gallery {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            flex-wrap: wrap;
+        .nickname {
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 5s infinite linear;
+            background-size: 300% 300%;
         }
-        .video-item {
-            width: 300px;
-            margin: 10px;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            position: relative;
-            transition: transform 0.3s;
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        .video-item a {
-            display: block;
-            width: 100%;
-            height: 200px;
-            position: relative;
-            overflow: hidden;
-        }
-        .video-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        .video-caption {
-            text-align: center;
-            color: #fff;
-            background-color: #007bff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            position: relative;
-            top: 10px;
-            animation: slideDown 0.5s ease;
-        }
-        .new-video-label, .popular-video-label {
-            text-align: center;
-            color: #fff;
-            background-color: #ff5722;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: slideDown 0.5s ease;
-            font-size: 14px;
+        .section-title {
+            font-size: 18px;
+            color: #aaa;
         }
         .stars {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
@@ -139,18 +107,32 @@
             pointer-events: none;
             overflow: hidden;
             z-index: -1;
+            background: transparent;
         }
         .star {
+            position: absolute;
+            background-image: url('https://i.imgur.com/p0GjCNd.png');
+            background-size: cover;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .star-fall {
             position: absolute;
             background: url('https://i.imgur.com/p0GjCNd.png') no-repeat center;
             background-size: contain;
             width: 15px;
             height: 15px;
-            animation: blink 1.5s infinite alternate;
+            animation: starFall 2s forwards;
         }
-        @keyframes blink {
-            0% { opacity: 0.5; }
-            100% { opacity: 1; }
+        @keyframes starFall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
         }
         @keyframes slideDown {
             0% {
@@ -162,36 +144,15 @@
                 transform: translateY(0);
             }
         }
-        .alert {
+        .click-count {
             display: none;
-            padding: 20px;
-            background-color: #444;
+            margin-top: 10px;
+            font-size: 18px;
             color: #fff;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
             border-radius: 8px;
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            max-width: 80%;
-        }
-        .alert a {
-            color: #1e90ff;
-            text-decoration: underline;
-        }
-        @keyframes starFall {
-            to {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-        .star-fall {
-            position: absolute;
-            background: url('https://i.imgur.com/p0GjCNd.png') no-repeat center;
-            background-size: contain;
-            width: 15px;
-            height: 15px;
-            animation: starFall 2s forwards;
+            animation: slideDown 0.5s ease;
         }
     </style>
 </head>
@@ -200,193 +161,89 @@
     <div class="container">
         <section class="avatar-container">
             <img src="https://i.imgur.com/Hn0H7sl.png" alt="Аватарка Zhdyn3" id="avatar-img">
+            <div class="nickname">Zhdyn3</div>
+            <div class="click-count" id="click-count">0</div>
         </section>
         <section>
-            <h2>Ссылки Zhdyn3</h2>
+            <h2 class="section-title">---------- Ссылки ----------</h2>
         </section>
         <section class="social-links">
             <a href="#" id="discord-link"><img src="https://i.imgur.com/XhwaoKk.png" alt="Discord"></a>
             <a href="https://www.tiktok.com/@zhdynchik3?_t=8nM9B2Pn8CE&_r=1" target="_blank"><img src="https://i.imgur.com/zrv3v2v.png" alt="TikTok"></a>
             <a href="https://youtube.com/@zhdynchik3?si=4yizaT3VnfeMW_DP" target="_blank"><img src="https://i.imgur.com/05FnVqn.png" alt="YouTube"></a>
-            <a href="https://www.donationalerts.com/r/zhdyn3" target="_blank"><img src="https://i.imgur.com/WWLyAC5.png" alt="Donation Alerts Logo" style="display: block; margin: 0 auto;"></a>
+            <a href="https://www.donationalerts.com/r/zhdyn3" target="_blank"><img src="https://i.imgur.com/WWLyAC5.png" alt="Donation Alerts Logo"></a>
+            <a href="https://github.com/zhdyn3" target="_blank"><img src="https://i.imgur.com/gaIRg9B.png" alt="GitHub"></a>
+            <a href="https://steamcommunity.com/id/ZHDANOV_MAKSON/" target="_blank"><img src="https://i.imgur.com/Qtig2iH.png" alt="Steam"></a>
         </section>
 
-        <!-- Сообщение для Discord -->
-        <div class="alert" id="discord-alert">
-            К сожалению у Ждунчика нету своего Discord сервера, но вы можете зайти на сервера которые он рекомендует: 
-            <a href="https://discord.gg/MmVydgf89d" target="_blank">Сервер Дрим Гориллы</a>, 
-            <a href="https://discord.com/invite/sigma-studio" target="_blank">SIGMA STUDIO</a>
-        </div>
-
-        <div class="video-caption">Видео с канала на YouTube</div>
-        
-        <section class="video-gallery">
-            <div class="video-item">
-                <div class="new-video-label"></div>
-                <a id="new-video" href="#" target="_blank">
-                    <img id="new-video-thumbnail" src="" alt="">
-                </a>
-            </div>
-            <div class="video-item">
-                <div class="popular-video-label"></div>
-                <a id="most-popular-video" href="#" target="_blank">
-                    <img id="popular-video-thumbnail" src="" alt="">
-                </a>
-            </div>
-            <div class="video-item">
-                <a id="random-video-1" href="#" target="_blank">
-                    <img id="random-video-thumbnail-1" src="" alt="">
-                </a>
-            </div>
-            <div class="video-item">
-                <a id="random-video-2" href="#" target="_blank">
-                    <img id="random-video-thumbnail-2" src="" alt="">
-                </a>
-            </div>
-        </section>
-            
         <footer>
             <p>&copy; 2024 Zhdynchik3. Все права защищены.</p>
         </footer>
+    </div>
     
-        <script>
-            const CACHE_KEY = 'youtube_videos_cache';
-            const CACHE_DURATION = 3600000;
-        
-            async function fetchVideos() {
-                const now = Date.now();
-                const cachedData = localStorage.getItem(CACHE_KEY);
-                
-                if (cachedData && now - JSON.parse(cachedData).timestamp < CACHE_DURATION) {
-                    const data = JSON.parse(cachedData).data;
-                    processVideos(data);
-                } else {
-                    const apiKey = 'AIzaSyBLLRI1pVx3dXVKjbZv3lAqkVTVfxkOV5A';
-                    const channelId = 'UC8n0a2VCptAv7Up9ObBldrA';
-                    const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&order=date&part=snippet&type=video&maxResults=10`;
-        
-                    try {
-                        const response = await fetch(apiUrl);
-                        const data = await response.json();
-                        
-                        localStorage.setItem(CACHE_KEY, JSON.stringify({
-                            timestamp: now,
-                            data: data
-                        }));
-        
-                        processVideos(data);
-                    } catch (error) {
-                        console.error('Ошибка при получении данных с YouTube:', error);
-                    }
-                }
-            }
-        
-            function processVideos(data) {
-                const videos = data.items;
-        
-                if (videos.length > 0) {
-                    const getVideoUrl = (videoId) => `https://www.youtube.com/watch?v=${videoId}`;
-                    const getThumbnailUrl = (videoId) => `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-        
-                    const newVideo = videos[0];
-                    const popularVideo = videos.reduce((prev, current) => (prev.snippet.publishedAt > current.snippet.publishedAt) ? prev : current);
-        
-                    const randomIndex1 = Math.floor(Math.random() * videos.length);
-                    const randomIndex2 = Math.floor(Math.random() * videos.length);
-        
-                    updateVideoElement('new-video', 'new-video-thumbnail', newVideo);
-                    updateVideoElement('most-popular-video', 'popular-video-thumbnail', popularVideo);
-                    updateVideoElement('random-video-1', 'random-video-thumbnail-1', videos[randomIndex1]);
-                    updateVideoElement('random-video-2', 'random-video-thumbnail-2', videos[randomIndex2]);
-                }
-            }
-        
-            function updateVideoElement(anchorId, imgId, video) {
-                const url = getVideoUrl(video.id.videoId);
-                const thumbnail = getThumbnailUrl(video.id.videoId);
-        
-                document.getElementById(anchorId).href = url;
-                document.getElementById(imgId).src = thumbnail;
-            }
-        
-            function getVideoUrl(videoId) {
-                return `https://www.youtube.com/watch?v=${videoId}`;
-            }
-        
-            function getThumbnailUrl(videoId) {
-                return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-            }
-        
-            // Инициализация
-            fetchVideos();
-    
-        
-        function createStarsFromAvatar() {
-            for (let i = 0; i < 10; i++) {
-                const star = document.createElement('div');
-                star.className = 'star-fall';
-                star.style.left = `${avatarImg.offsetLeft + avatarImg.offsetWidth / 2 - 7.5}px`;
-                star.style.top = `${avatarImg.offsetTop + avatarImg.offsetHeight / 2 - 7.5}px`;
-                starsContainer.appendChild(star);
-
-                setTimeout(() => {
-                    star.style.left = `${Math.random() * 100}vw`;
-                    star.style.top = `${Math.random() * 100}vh`;
-                }, 100);
-            }
-        }
-
-        fetchVideos();
-
-        document.getElementById('discord-link').addEventListener('click', function() {
-            document.getElementById('discord-alert').style.display = 'block';
-        });
-
-        const avatarImg = document.getElementById('avatar-img');
-        const starsContainer = document.getElementById('stars-container');
-
-        avatarImg.addEventListener('click', function() {
-            this.classList.add('clicked');
-            createStarsFromAvatar();
-            setTimeout(() => this.classList.remove('clicked'), 300);
-        });
-
-        function createStarsFromAvatar() {
-            for (let i = 0; i < 10; i++) {
-                const star = document.createElement('div');
-                star.className = 'star-fall';
-                star.style.left = `${avatarImg.offsetLeft + avatarImg.offsetWidth / 2 - 7.5}px`;
-                star.style.top = `${avatarImg.offsetTop + avatarImg.offsetHeight / 2 - 7.5}px`;
-                starsContainer.appendChild(star);
-
-                setTimeout(() => {
-                    star.style.left = `${Math.random() * 100}vw`;
-                    star.style.top = `${Math.random() * 100}vh`;
-                }, 100);
-            }
-        }
-
-        fetchVideos();
-        
-         function generateStars() {
+    <script>
+        function generateStars() {
             const starsContainer = document.getElementById('stars-container');
-            const numberOfStars = 30; 
+            const numberOfStars = 50;
 
             for (let i = 0; i < numberOfStars; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                const size = Math.random() * 5 + 12;
+                const size = Math.random() * 10 + 10;
                 const x = Math.random() * 100;
                 const y = Math.random() * 100;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
                 star.style.top = `${y}%`;
                 star.style.left = `${x}%`;
+                star.style.opacity = Math.random() * 0.5 + 0.5;
                 starsContainer.appendChild(star);
             }
         }
 
-        generateStars();
+        function createFallingStars() {
+            const starsContainer = document.getElementById('stars-container');
+            const numStars = 30;
+            const existingStars = starsContainer.querySelectorAll('.star-fall');
+            existingStars.forEach(star => star.remove());
+
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star-fall');
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.width = (Math.random() * 10 + 5) + 'px';
+                star.style.height = star.style.width;
+                star.style.opacity = Math.random() * 0.5 + 0.5;
+                star.style.animationDuration = Math.random() * 2 + 3 + 's';
+                star.style.animationName = 'starFall';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            generateStars();
+            
+            const avatarImg = document.getElementById('avatar-img');
+            const clickCountDiv = document.getElementById('click-count');
+            let clickCount = localStorage.getItem('clickCount') || 0;
+
+            clickCountDiv.textContent = clickCount;
+
+            avatarImg.addEventListener('click', function() {
+                clickCount++;
+                localStorage.setItem('clickCount', clickCount);
+                clickCountDiv.textContent = clickCount;
+                clickCountDiv.style.display = 'block';
+                createFallingStars();
+            });
+
+            const discordLink = document.getElementById('discord-link');
+            discordLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                document.getElementById('discord-alert').style.display = 'block';
+                setTimeout(() => document.getElementById('discord-alert').style.display = 'none', 5000);
+            });
+        });
     </script>
 </body>
 </html>
