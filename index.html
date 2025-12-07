@@ -3,248 +3,571 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Zhdyn, Zhdyn3, Zhdun, Zhdun3, Zhdunchik3, Zhdunchik, Zhdunek3, Zhdunek, Zhdynchik3, Zhdynchik, Ждун, Ждун3, Ждунчик, Ждунчик3, Ждунек, Ждунек3">
-    <meta name="desctiption" content="Zhdyn, Zhdyn3, Zhdun, Zhdun3, Zhdunchik3, Zhdunchik, Zhdunek3, Zhdunek, Zhdynchik3, Zhdynchik, Ждун, Ждун3, Ждунчик, Ждунчик3, Ждунек, Ждунек3">
-    <meta name="keywords" content="Zhdyn, Zhdyn3, Zhdun, Zhdun3, Zhdunchik3, Zhdunchik, Zhdunek3, Zhdunek, Zhdynchik3, Zhdynchik, Ждун, Ждун3, Ждунчик, Ждунчик3, Ждунек, Ждунек3">
-    <title>Страница о Zhdyn3</title>
+
+    <title>Zhdyn3 — ссылки и соцсети</title>
+
+    <meta name="description" content="Страница со всеми основными ссылками и соцсетями Zhdyn3: Discord, TikTok, YouTube, DonationAlerts, GitHub, Steam.">
+    <meta name="keywords" content="Zhdyn,Zhdyn3,Zhdun,Zhdun3,Ждун,Ждун3,стример,ютубер,тикток">
+    <meta name="author" content="Zhdyn3, Ждун3">
+
+    <meta property="og:title" content="Zhdyn3 — ссылки и соцсети">
+    <meta property="og:description" content="Здесь собраны все основные ссылки и соцсети Zhdyn3.">
+    <meta property="og:image" content="https://i.imgur.com/Hn0H7sl.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com">
+
+    <meta name="twitter:card" content="summary">
+
     <link rel="icon" href="https://i.imgur.com/mYUXsXn.png" type="image/png">
+
     <style>
+        :root {
+            --bg-main: #020617;
+            --card-bg: rgba(15, 23, 42, 0.92);
+            --card-border: rgba(148, 163, 184, 0.7);
+            --accent-main: #38bdf8;      /* голубой акцент */
+            --accent-soft: #e0f2fe;      /* мягкий светлый */
+            --text-main: #f9fbff;
+            --text-secondary: #cbd5f5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #222;
-            color: #fff;
             margin: 0;
-            padding: 0;
-            overflow-x: hidden;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top, #1e3a8a 0, #0b1120 45%, var(--bg-main) 100%);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             text-align: center;
+            overflow-x: hidden;
             position: relative;
         }
+
+        /* СНЕГ */
+        .snow {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .snowflake {
+            position: absolute;
+            background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: twinkle 5s ease-in-out infinite;
+        }
+
+        .snowflake.layer-2 {
+            opacity: 0.35;
+            animation-duration: 8s;
+        }
+
+        .snowflake-fall {
+            position: absolute;
+            background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            animation: snowFall 3s forwards;
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.25; transform: translateY(0) scale(0.9); }
+            50% { opacity: 0.9; transform: translateY(6px) scale(1.05); }
+        }
+
+        @keyframes snowFall {
+            0% {
+                transform: translateY(-120px) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(40px);
+                opacity: 0;
+            }
+        }
+
+        /* КАРТОЧКА */
         .container {
-            max-width: 800px;
-            width: 100%;
-            margin: 20px;
-            padding: 20px;
-            background-color: rgba(51, 51, 51, 0.8);
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             position: relative;
             z-index: 1;
+            max-width: 820px;
+            width: 100%;
+            margin: 20px;
+            padding: 32px 32px 22px;
+            background: var(--card-bg);
+            border-radius: 22px;
+            border: 1px solid var(--card-border);
+            box-shadow:
+                0 24px 60px rgba(0, 0, 0, 0.9),
+                0 0 0 1px rgba(148, 163, 184, 0.25);
+            backdrop-filter: blur(16px);
+            overflow: hidden;
         }
-        h1, h2 {
-            color: #fff;
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 22px 16px 16px;
+                margin: 12px;
+            }
         }
-        p {
-            line-height: 1.6;
-            color: #fff;
+
+        /* ГИРЛЯНДА */
+        .garland {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 46px;
+            pointer-events: none;
         }
-        .social-links {
-            margin-top: 20px;
-            position: relative;
-            z-index: 2;
+
+        .garland-line {
+            position: absolute;
+            top: 16px;
+            left: 3%;
+            width: 94%;
+            height: 0;
+            border-top: 2px solid rgba(148, 163, 184, 0.5);
+            border-radius: 999px;
         }
-        .social-links a {
-            display: inline-block;
-            margin: 0 10px;
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50%;
-            transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
-            animation: slideDown 0.5s ease;
+
+        .bulb {
+            position: absolute;
+            top: 5px;
+            width: 12px;
+            height: 20px;
+            border-radius: 999px;
+            box-shadow: 0 0 10px rgba(15, 23, 42, 0.9);
+            transform-origin: top center;
+            animation: bulbSwing 1.7s ease-in-out infinite alternate;
         }
-        .social-links a:hover {
-            background-color: #555;
-            transform: translateY(-3px);
+
+        .bulb::after {
+            content: "";
+            position: absolute;
+            top: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 4px;
+            border-radius: 2px;
+            background: #020617;
         }
-        .social-links img {
-            width: 40px;
-            height: 40px;
+
+        .bulb.blue {
+            background: #38bdf8;
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.8);
         }
+
+        .bulb.cyan {
+            background: #22d3ee;
+            box-shadow: 0 0 16px rgba(34, 211, 238, 0.8);
+        }
+
+        .bulb.white {
+            background: #e5f4ff;
+            box-shadow: 0 0 16px rgba(226, 232, 240, 0.9);
+        }
+
+        .bulb:nth-child(2) { left: 8%;  animation-delay: 0.0s; }
+        .bulb:nth-child(3) { left: 22%; animation-delay: 0.2s; }
+        .bulb:nth-child(4) { left: 36%; animation-delay: 0.4s; }
+        .bulb:nth-child(5) { left: 50%; animation-delay: 0.1s; }
+        .bulb:nth-child(6) { left: 64%; animation-delay: 0.35s; }
+        .bulb:nth-child(7) { left: 78%; animation-delay: 0.15s; }
+        .bulb:nth-child(8) { left: 90%; animation-delay: 0.5s; }
+
+        @keyframes bulbSwing {
+            0%   { transform: rotate(-7deg); }
+            100% { transform: rotate(5deg); }
+        }
+
         .avatar-container {
-            margin-top: 20px;
-            position: relative;
-            z-index: 2;
+            margin-bottom: 12px;
         }
+
         .avatar-container img {
             border-radius: 50%;
             width: 150px;
             height: 150px;
-            border: 3px solid #fff;
+            border: 3px solid rgba(226, 232, 240, 0.9);
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+            background: radial-gradient(circle at 30% 20%, rgba(148, 163, 184, 0.38), transparent 55%);
         }
+
         .avatar-container img.clicked {
-            transform: scale(1.2);
+            transform: scale(1.08);
+            box-shadow: 0 26px 65px rgba(15, 23, 42, 1);
+            border-color: var(--accent-main);
         }
+
         .nickname {
-            margin-top: 10px;
-            font-size: 24px;
-            font-weight: bold;
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            margin-top: 12px;
+            font-size: 26px;
+            font-weight: 700;
+            background: linear-gradient(90deg,
+                #e0f2fe, #38bdf8, #e0f2fe);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: rainbow 5s infinite linear;
-            background-size: 300% 300%;
+            background-size: 180% 180%;
+            animation: nameGlow 5s infinite linear;
         }
-        @keyframes rainbow {
+
+        @keyframes nameGlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        .section-title {
-            font-size: 18px;
-            color: #aaa;
-        }
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: -1;
-            background: transparent;
-        }
-        .star {
-            position: absolute;
-            background-image: url('https://i.imgur.com/p0GjCNd.png');
-            background-size: cover;
-            border-radius: 50%;
-            pointer-events: none;
-        }
-        .star-fall {
-            position: absolute;
-            background: url('https://i.imgur.com/p0GjCNd.png') no-repeat center;
-            background-size: contain;
-            width: 15px;
-            height: 15px;
-            animation: starFall 2s forwards;
-        }
-        @keyframes starFall {
-            0% {
-                transform: translateY(-100px);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-        @keyframes slideDown {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+
         .click-count {
-            display: none;
             margin-top: 10px;
-            font-size: 18px;
-            color: #fff;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            border-radius: 8px;
-            animation: slideDown 0.5s ease;
+            font-size: 13px;
+            color: var(--text-secondary);
+            background: rgba(15, 23, 42, 0.9);
+            padding: 6px 12px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+        }
+
+        .click-count span {
+            font-weight: 600;
+            color: var(--accent-main);
+        }
+
+        .greeting {
+            margin-top: 10px;
+            margin-bottom: 14px;
+        }
+
+        .greeting-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-soft);
+            letter-spacing: 0.11em;
+            text-transform: uppercase;
+        }
+
+        .greeting-text {
+            margin-top: 6px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .section-title {
+            margin: 18px 0 6px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .section-divider {
+            width: 140px;
+            height: 1px;
+            margin: 6px auto 18px;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(148, 197, 255, 0.9),
+                transparent);
+            opacity: 0.9;
+        }
+
+        .links-section {
+            margin-bottom: 16px;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 4px;
+        }
+
+        .social-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            text-decoration: none;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(191, 219, 254, 0.4), transparent 60%),
+                radial-gradient(circle at 70% 70%, rgba(15, 23, 42, 0.9), #020617);
+            box-shadow:
+                0 10px 25px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(148, 163, 184, 0.7);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+        }
+
+        .social-btn img {
+            width: 36px;
+            height: 36px;
+            display: block;
+            border-radius: 50%;
+        }
+
+        .social-btn::after {
+            content: "";
+            position: absolute;
+            inset: 5px;
+            border-radius: 50%;
+            border: 1px solid rgba(226, 232, 240, 0.35);
+            pointer-events: none;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow:
+                0 14px 32px rgba(15, 23, 42, 1),
+                0 0 0 1px rgba(191, 219, 254, 0.9);
+            filter: brightness(1.05);
+        }
+
+        footer {
+            margin-top: 18px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .toast {
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 22px;
+            transform: translateX(-50%) translateY(18px);
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.98);
+            border: 1px solid rgba(148, 197, 255, 0.8);
+            color: var(--text-main);
+            font-size: 13px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.95);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @media (max-width: 600px) {
+            .avatar-container img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .social-btn {
+                width: 48px;
+                height: 48px;
+            }
+
+            .social-btn img {
+                width: 32px;
+                height: 32px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="stars" id="stars-container"></div>
-    <div class="container">
+    <div class="snow" id="snow-container"></div>
+
+    <main class="container">
+        <div class="garland" aria-hidden="true">
+            <div class="garland-line"></div>
+            <div class="bulb blue"></div>
+            <div class="bulb cyan"></div>
+            <div class="bulb white"></div>
+            <div class="bulb blue"></div>
+            <div class="bulb cyan"></div>
+            <div class="bulb white"></div>
+            <div class="bulb blue"></div>
+        </div>
+
         <section class="avatar-container">
             <img src="https://i.imgur.com/Hn0H7sl.png" alt="Аватарка Zhdyn3" id="avatar-img">
             <div class="nickname">Zhdyn3</div>
-            <div class="click-count" id="click-count">0</div>
+
+            <div class="click-count" id="click-count">
+                Клики по аватарке: <span>0</span>
+            </div>
         </section>
-        <section>
-            <h2 class="section-title">---------- Ссылки ----------</h2>
+
+        <section class="greeting">
+            <div class="greeting-title">С новим годом)</div>
         </section>
-        <section class="social-links">
-            <a href="#" id="discord-link"><img src="https://i.imgur.com/XhwaoKk.png" alt="Discord"></a>
-            <a href="https://www.tiktok.com/@zhdynchik3?_t=8nM9B2Pn8CE&_r=1" target="_blank"><img src="https://i.imgur.com/zrv3v2v.png" alt="TikTok"></a>
-            <a href="https://youtube.com/@zhdynchik3?si=4yizaT3VnfeMW_DP" target="_blank"><img src="https://i.imgur.com/05FnVqn.png" alt="YouTube"></a>
-            <a href="https://www.donationalerts.com/r/zhdyn3" target="_blank"><img src="https://i.imgur.com/WWLyAC5.png" alt="Donation Alerts Logo"></a>
-            <a href="https://github.com/zhdyn3" target="_blank"><img src="https://i.imgur.com/gaIRg9B.png" alt="GitHub"></a>
-            <a href="https://steamcommunity.com/id/ZHDANOV_MAKSON/" target="_blank"><img src="https://i.imgur.com/Qtig2iH.png" alt="Steam"></a>
+
+        <section class="links-section">
+            <div class="section-title">Ссылки</div>
+            <div class="section-divider"></div>
+
+            <nav class="social-links" aria-label="Ссылки на соцсети">
+                <a href="https://discord.com/app"
+                   class="social-btn"
+                   id="discord-link"
+                   aria-label="Discord"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <img src="https://i.imgur.com/XhwaoKk.png" alt="Discord">
+                </a>
+
+                <a href="https://www.tiktok.com/@zhdynchik3?_t=8nM9B2Pn8CE&_r=1"
+                   class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                    <img src="https://i.imgur.com/zrv3v2v.png" alt="TikTok">
+                </a>
+
+                <a href="https://youtube.com/@zhdynchik3?si=4yizaT3VnfeMW_DP"
+                   class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <img src="https://i.imgur.com/05FnVqn.png" alt="YouTube">
+                </a>
+
+                <a href="https://www.donationalerts.com/r/zhdyn3"
+                   class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="Donation Alerts">
+                    <img src="https://i.imgur.com/WWLyAC5.png" alt="Donation Alerts">
+                </a>
+
+                <a href="https://github.com/zhdyn3"
+                   class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <img src="https://i.imgur.com/gaIRg9B.png" alt="GitHub">
+                </a>
+
+                <a href="https://steamcommunity.com/id/ZHDYN3/"
+                   class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="Steam">
+                    <img src="https://i.imgur.com/Qtig2iH.png" alt="Steam">
+                </a>
+            </nav>
         </section>
 
         <footer>
-            <p>&copy; 2024 Zhdynchik3. Все права защищены.</p>
+            <p>&copy; 2025-2026 Zhdyn3. Все права защищены.</p>
         </footer>
-    </div>
-    
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
     <script>
-        function generateStars() {
-            const starsContainer = document.getElementById('stars-container');
-            const numberOfStars = 50;
+        const DISCORD_NICK = 'zhdyn3';
+        const SNOW_COUNT_LAYER1 = 50;
+        const SNOW_COUNT_LAYER2 = 40;
 
-            for (let i = 0; i < numberOfStars; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                const size = Math.random() * 10 + 10;
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.top = `${y}%`;
-                star.style.left = `${x}%`;
-                star.style.opacity = Math.random() * 0.5 + 0.5;
-                starsContainer.appendChild(star);
+        function generateSnow() {
+            const container = document.getElementById('snow-container');
+
+            const createFlakes = (layerClass, count) => {
+                for (let i = 0; i < count; i++) {
+                    const flake = document.createElement('div');
+                    flake.className = `snowflake ${layerClass}`;
+                    const size = Math.random() * 8 + 4;
+                    const x = Math.random() * 100;
+                    const y = Math.random() * 100;
+                    flake.style.width = `${size}px`;
+                    flake.style.height = `${size}px`;
+                    flake.style.left = `${x}%`;
+                    flake.style.top = `${y}%`;
+                    flake.style.opacity = (Math.random() * 0.5 + 0.3).toFixed(2);
+                    flake.style.animationDelay = `${Math.random() * 4}s`;
+                    container.appendChild(flake);
+                }
+            };
+
+            createFlakes('layer-1', SNOW_COUNT_LAYER1);
+            createFlakes('layer-2', SNOW_COUNT_LAYER2);
+        }
+
+        function createFallingSnow(numFlakes = 18) {
+            const container = document.getElementById('snow-container');
+
+            for (let i = 0; i < numFlakes; i++) {
+                const flake = document.createElement('div');
+                flake.classList.add('snowflake-fall');
+                flake.style.left = Math.random() * 100 + 'vw';
+                const size = (Math.random() * 8 + 4);
+                flake.style.width = size + 'px';
+                flake.style.height = size + 'px';
+                flake.style.opacity = Math.random() * 0.5 + 0.5;
+                flake.style.animationDuration = (Math.random() * 2.5 + 2.2) + 's';
+                container.appendChild(flake);
+
+                flake.addEventListener('animationend', () => flake.remove());
             }
         }
 
-        function createFallingStars() {
-            const starsContainer = document.getElementById('stars-container');
-            const numStars = 30;
-            const existingStars = starsContainer.querySelectorAll('.star-fall');
-            existingStars.forEach(star => star.remove());
+        function showToast(message, duration = 2600) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
 
-            for (let i = 0; i < numStars; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star-fall');
-                star.style.left = Math.random() * 100 + 'vw';
-                star.style.width = (Math.random() * 10 + 5) + 'px';
-                star.style.height = star.style.width;
-                star.style.opacity = Math.random() * 0.5 + 0.5;
-                star.style.animationDuration = Math.random() * 2 + 3 + 's';
-                star.style.animationName = 'starFall';
-                starsContainer.appendChild(star);
-            }
+            clearTimeout(showToast._timeoutId);
+            showToast._timeoutId = setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            generateStars();
-            
+        document.addEventListener('DOMContentLoaded', () => {
+            generateSnow();
+
+            setInterval(() => {
+                createFallingSnow(8);
+            }, 2000);
+
             const avatarImg = document.getElementById('avatar-img');
-            const clickCountDiv = document.getElementById('click-count');
-            let clickCount = localStorage.getItem('clickCount') || 0;
+            const clickCountWrap = document.getElementById('click-count');
+            const clickCountSpan = clickCountWrap.querySelector('span');
+            const discordLink = document.getElementById('discord-link');
 
-            clickCountDiv.textContent = clickCount;
+            let clickCount = Number(localStorage.getItem('avatarClickCount')) || 0;
+            clickCountSpan.textContent = clickCount;
 
-            avatarImg.addEventListener('click', function() {
+            avatarImg.addEventListener('click', () => {
+                avatarImg.classList.add('clicked');
+                setTimeout(() => avatarImg.classList.remove('clicked'), 220);
+
                 clickCount++;
-                localStorage.setItem('clickCount', clickCount);
-                clickCountDiv.textContent = clickCount;
-                clickCountDiv.style.display = 'block';
-                createFallingStars();
+                localStorage.setItem('avatarClickCount', String(clickCount));
+                clickCountSpan.textContent = clickCount;
+
+                createFallingSnow();
             });
 
-            const discordLink = document.getElementById('discord-link');
-            discordLink.addEventListener('click', function(event) {
-                event.preventDefault();
-                document.getElementById('discord-alert').style.display = 'block';
-                setTimeout(() => document.getElementById('discord-alert').style.display = 'none', 5000);
+            discordLink.addEventListener('click', async () => {
+                let message;
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    try {
+                        await navigator.clipboard.writeText(DISCORD_NICK);
+                        message = `Discord ник ${DISCORD_NICK} скопирован в буфер обмена`;
+                    } catch (err) {
+                        message = `Мой Discord: ${DISCORD_NICK}`;
+                    }
+                } else {
+                    message = `Мой Discord: ${DISCORD_NICK}`;
+                }
+
+                showToast(message);
             });
         });
     </script>
